@@ -1,0 +1,76 @@
+.banner {
+    position: relative;
+    text-align: center;
+    min-height: 150px;
+    width: 100%;
+}
+
+.banner h2 {
+    color:#343a40;
+    font-family: 'Raleway';
+    font-size: 28px;
+    font-weight: 300;
+    margin: 0 0 2px;
+}
+
+.banner p {
+    color: #343a40;
+    font-family: 'Raleway';
+    font-size: 20px;
+    line-height: 1;
+}
+
+.listing-container {
+    position: relative;
+    width: 100%;
+    min-height: 250px;
+    border-top: 1px solid #2ba9e3;
+    margin: 0 auto;
+    padding: 25px 25px;
+}
+
+.listing-img-container {
+    position: relative;
+    float: right;
+}
+
+.listing-img-container img {
+    position: relative;
+    max-height: 200px;
+    max-width: 200px;
+    min-height: 190px;
+    min-width: 190px;
+}
+
+.listing-details-container{
+    position: relative;
+    text-align:left;
+}
+
+.listing-details-container h2 {
+    color:#343a40;
+    font-family: 'Raleway';
+    font-size: 32px;
+    font-weight: 200;
+    margin: 0 0 2px;
+}
+
+.listing-details-container hr {
+    width: 70%;
+    color: #f2f2f2;
+    float: left;
+}
+
+.listing-details-container p {
+    color: #343a40;
+    font-family: 'Raleway';
+    font-size: 14px;
+    line-height: 1;
+}
+
+.listing-details-container a {
+    font-size: 18px;
+    font-family: 'Raleway';
+    color: #490e96;
+
+}

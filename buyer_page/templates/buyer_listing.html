@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="/static/css/buyer_listing.css">
+
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="pure-g">
+	<div class="pure-u-1 banner">
+		<h2> <b> Listings: {{ category }} </b> </h2>
+		<br>
+		<p> Browse through the available items listed by various suppliers! </p>
+	</div>
+
+	{% for listing in listings %}
+	<div class="pure-u-19-24 listing-container">
+		<div class="pure-u-1-4 listing-img-container">
+			<img src="{{listing.image_path}}">
+		</div>
+
+		<div class="pure-u-3-4 listing-details-container">
+			<h2> {{listing.item_name}} </h2>
+			<br> 
+			<p> <b> Current Orders: </b> {{ listing.orders }} </p> 
+			<p> <b> Orders to Ship: </b> {{ listing.min_orders }} </p>
+			<p> <b> Unit Price: </b> ${{ listing.current_price }} </p>
+			<p> <b> Seller: </b> {{ listing.seller_name }} </p>
+
+			<br>
+			<a href="/item_details/{{ username }}/{{ listing.listing_id }}"> View Details </a>
+		</div>
+	</div>
+	{% endfor %}
+
+</div>
+{% endblock %}
