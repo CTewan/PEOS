@@ -119,6 +119,16 @@ class Listing(models.Model):
         self.min_orders = min(self.unit_price.keys())
         self.save()
 
+    def process_unit_price(self):
+        i = 1
+        data = []
+        for quantity, price in self.unit_price.items():
+            data.append([i, int(quantity), round(float(price),2)])
+            i += 1
+
+        return data
+
+
 class Transactions(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

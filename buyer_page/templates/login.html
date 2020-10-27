@@ -22,7 +22,7 @@
 
 
     <div class="pure-u-1">
-    <form action="/login" class="pure-form pure-form-aligned" method="POST" >
+        <form action="/login" class="pure-form pure-form-aligned" method="POST" >
             {% csrf_token %}
             <div class="pure-control-group">
             {{form.username}}
@@ -32,7 +32,7 @@
             {{form.password}}   
             </div>
             <button type="submit" class="pure-button pure-button-primary">Login</button>
-    </form>
+        </form>
     </div>
 </div>
 

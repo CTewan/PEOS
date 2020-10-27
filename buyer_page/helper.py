@@ -36,12 +36,16 @@ def get_all_listings_by_category(category):
 	return listings
 
 def get_listing_details(listing_id):
-	listing = Listing.objects.get(listing_id=listing_id).__dict__
+	listing = Listing.objects.get(listing_id=listing_id)
+	price_tier_data = listing.process_unit_price()
+	listing = listing.__dict__
 
 	seller = listing["seller_id"]
 	seller = Seller.objects.get(pk=seller)
 	seller = seller.username
 
 	listing["seller_name"] = seller
+	listing["price_tier_data"] = price_tier_data
+	listing["price_tier_columns"] = ["Tier", "Quantity", "Price"]
 
 	return listing

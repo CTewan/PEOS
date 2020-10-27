@@ -77,6 +77,8 @@ def item_details(request, listing_id, username=None):
 	if request.method == "GET":
 		listing = get_listing_details(listing_id=listing_id)
 		context["listing"] = listing
+		order_form = OrderForm()
+		context["form"] = order_form
 
 		return render(request, "item_details.html", context)
 
