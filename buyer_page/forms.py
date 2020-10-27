@@ -9,5 +9,5 @@ class LoginForm(forms.Form):
                                									 'style': 'position: relative;'}))
 class OrderForm(forms.Form):
 	order_quantity = forms.IntegerField(label="order_quantity", 
-										widget=forms.TextInput(attrs={'name': 'order_quantity', 'value': 0, 'class': 'pure-input-1-4',
+										widget=forms.TextInput(attrs={'name': 'order_quantity', 'value': 0, 'class': 'pure-input-1-3',
 																	  'style': 'position: relative;'}))

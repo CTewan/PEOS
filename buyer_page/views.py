@@ -82,4 +82,19 @@ def item_details(request, listing_id, username=None):
 
 		return render(request, "item_details.html", context)
 
+	else:
+		order_form = OrderForm(request.POST)
+
+		if order_form.is_valid():
+			order_info = order_form.cleaned_data
+			create_transaction(username=username,
+							   listing_id=listing_id,
+							   quantity=order_info["order_quantity"])
+
+			return render(request, "checkout.html", context)
+
+	
+	
+
+
 	

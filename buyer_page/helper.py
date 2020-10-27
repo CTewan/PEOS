@@ -49,3 +49,13 @@ def get_listing_details(listing_id):
 	listing["price_tier_columns"] = ["Tier", "Quantity", "Price"]
 
 	return listing
+
+def create_transaction(username, listing_id, quantity):
+	buyer = User.objects.get(username=username).buyer
+	listing = Listing.objects.get(listing_id=listing_id)
+	seller = listing.seller
+
+	transaction = Transactions(listing=listing, buyer=buyer, seller=seller, quantity=quantity)
+	transaction.save()
+	transaction.update_listing_orders()
+	transaction.update_unit_price()
