@@ -74,6 +74,12 @@ def item_details(request, listing_id, username=None):
 	context = {}
 	context["username"] = username
 
+	if username == "None":
+		login_form = LoginForm()
+		context["form"] = login_form
+
+		return render(request, "login.html", context)
+
 	if request.method == "GET":
 		listing = get_listing_details(listing_id=listing_id)
 		context["listing"] = listing
@@ -91,10 +97,17 @@ def item_details(request, listing_id, username=None):
 							   listing_id=listing_id,
 							   quantity=order_info["order_quantity"])
 
-			return render(request, "checkout.html", context)
+		return render(request, "checkout.html", context)
+		#return redirect('checkout', username=username)
 
-	
-	
+def checkout(request, username):
+	context={}
+	context["username"] = username
 
+	columns, data = get_unpaid_transactions(username=username)
+	context["columns"] = columns
+	context["data"] = data
+
+	return render(request, "checkout.html", context)
 
 	

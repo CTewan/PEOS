@@ -63,7 +63,7 @@
             </div>
 
             <div class="pure-u-2-3 filler-details" style="padding: 15px 0px">
-                <form action="/item_details/{{ username }}/{{ listing.listing_id }}" class="pure-form pure-form-aligned" method="POST" >
+                <form action="/checkout/{{ username }}" class="pure-form pure-form-aligned" method="POST" >
                     {% csrf_token %}
                     <div class="pure-control-group">
                         <span> Quantity: </span>

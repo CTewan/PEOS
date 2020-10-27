@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/checkout.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#checkout').DataTable( {
+            "columnDefs": [
+                {"className": "dt-center", "targets": "_all"}
+            ],
+            "scrollY": "200px",
+            "scrollCollapse": true,
+            "paging": false,
+            data: {{ data|safe }},
+            columns: [
+                {% for colname in columns %}
+                    {"title": "{{colname}}"},
+                {% endfor %}
+            ],
+            "dom":"rt",
+        } );
+    } );
+</script>
+
+<div class="pure-u-19-24 cart-container">
+    <table id=checkout> </table>
+</div>
+{% endblock %}

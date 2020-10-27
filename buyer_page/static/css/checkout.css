@@ -1,0 +1,7 @@
+.cart-container {
+	position: relative;
+	width: 100%;
+	border: 2px solid #000000;
+	margin: 0 auto;
+	padding: 25px 25px;
+}

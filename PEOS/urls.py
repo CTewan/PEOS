@@ -24,6 +24,7 @@ urlpatterns = [
     path(r'buyer/<str:username>/', buyer_landing, name="buyer_landing"),
     path(r'buyer_listing/<str:username>/<str:category>', buyer_listing, name="buyer_listing"),
     path(r'item_details/<str:username>/<int:listing_id>', item_details, name="item_details"),
+    path(r'checkout/<str:username>', checkout, name="checkout"),
     path(r'login', login),
 ]
 
@@ -31,7 +32,6 @@ urlpatterns += [
     path(r'buyer', buyer_landing, name="buyer_landing"),
     path(r'buyer_listing/<str:category>', buyer_listing, name="buyer_listing"),
     path(r'item_details/<int:listing_id>', item_details, name="item_details"),
-    path(r'login', login)
 ]
 
 """

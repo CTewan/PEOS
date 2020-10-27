@@ -157,12 +157,7 @@ class Transactions(models.Model):
 
         Transactions.objects.bulk_update(transaction_set, ["unit_price"])
 
-def delete_transaction(transaction):
-    transaction = Transactions.objects.filter(pk=transaction.pk)
-    listing = transaction.listing
-    listing = Listing.objects.filter(pk=listing.pk)
-    listing.update_orders(orders=-transaction.quantity)
-    Transactions.objects.filter(pk=transaction.pk).delete()
+
 
 
 
