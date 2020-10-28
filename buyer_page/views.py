@@ -97,7 +97,7 @@ def item_details(request, listing_id, username=None):
 							   listing_id=listing_id,
 							   quantity=order_info["order_quantity"])
 
-		return render(request, "checkout.html", context)
+		return render(request, "item_details.html", context)
 		#return redirect('checkout', username=username)
 
 def checkout(request, username):

@@ -1,0 +1,65 @@
+from buyer_page.models import *
+
+# Add Data
+user = User(username="chiatewan", password="is5009", first_name="tewan", last_name="chia", email="is5009@gmail.com", delivery_address="123", billing_address="456")
+user.save()
+
+buyer = Buyer(user_ptr=user)
+buyer.__dict__.update(user.__dict__)
+buyer.save()
+
+seller = Seller(user_ptr=user)
+seller.__dict__.update(user.__dict__)
+seller.save()
+
+listing = Listing(seller=seller, item_name="potato", unit_price={50: 100, 100: 80}, quantity=500, expiration_date="2020-10-20 00:00", image_path="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=True, category="Electronics")
+
+listing.get_current_price()
+listing.get_min_orders()
+
+listing.save()
+
+listing = Listing(seller=seller, item_name="apple", unit_price={50: 100, 100: 80, 1000: 50}, quantity=500, expiration_date="2020-10-20 00:00", image_path="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=False, category="Fruits")
+
+listing.get_current_price()
+listing.get_min_orders()
+
+listing.save()
+
+listing = Listing(seller=seller, item_name="apple", unit_price={50: 100, 100: 80}, quantity=500, expiration_date="2020-10-20 00:00", image_path="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=True, category="Fruits")
+
+listing.get_current_price()
+listing.get_min_orders()
+
+listing.save()
+
+listing = Listing(seller=seller, item_name="apple", unit_price={50: 100, 100: 80}, quantity=500, expiration_date="2020-10-20 00:00", image_path="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=True, category="Fruits")
+
+listing.get_current_price()
+listing.get_min_orders()
+
+listing.save()
+
+listing = Listing(seller=seller, item_name="panasonic", unit_price={50: 100, 100: 80}, quantity=500, expiration_date="2020-10-20 00:00", image_path="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=True, category="Shirt")
+
+listing.get_current_price()
+listing.get_min_orders()
+
+listing.save()
+
+Listing.objects.filter(seller=seller, active=True)
+
+# Test Listing
+from buyer_page.models import *
+listing = Listing.objects.filter(active=True)[0]
+listing.get_current_price()
+
+# Test Transactions
+from buyer_page.models import *
+transaction = Transactions(listing=Listing.objects.get(pk=1), buyer=Buyer.objects.get(pk=1), seller=Seller.objects.get(pk=1), completed=False, quantity=50)
+transaction.save()
+transaction.update_listing_orders()
+transaction.update_unit_price()
+
+
+
