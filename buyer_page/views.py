@@ -93,21 +93,35 @@ def item_details(request, listing_id, username=None):
 
 		if order_form.is_valid():
 			order_info = order_form.cleaned_data
-			create_transaction(username=username,
-							   listing_id=listing_id,
-							   quantity=order_info["order_quantity"])
 
-		return render(request, "item_details.html", context)
-		#return redirect('checkout', username=username)
+			if order_info["order_quantity"] > 0:
+				create_transaction(username=username,
+								   listing_id=listing_id,
+								   quantity=order_info["order_quantity"])
+
+		#return render(request, "checkout.html", context)
+		return redirect('checkout', username=username)
 
 def checkout(request, username):
 	context={}
 	context["username"] = username
 
-	columns, data = get_unpaid_transactions(username=username)
-	context["columns"] = columns
-	context["data"] = data
+	if request.method == "GET":
+		columns, data, subtotal = get_unpaid_transactions(username=username)
+		context["columns"] = columns
+		context["data"] = data
+		context["subtotal"] = subtotal
 
-	return render(request, "checkout.html", context)
+		return render(request, "checkout.html", context)
 
+	else:
+		update_listings(username=username)
+
+		return redirect('payment', username=username)
+
+def payment(request, username):
+	context = {}
+	context["username"] = username
+
+	return render(request, "payment.html", context)
 	

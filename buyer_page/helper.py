@@ -57,8 +57,17 @@ def create_transaction(username, listing_id, quantity):
 
 	transaction = Transactions(listing=listing, buyer=buyer, seller=seller, quantity=quantity)
 	transaction.save()
-	transaction.update_listing_orders()
 	transaction.update_unit_price()
+
+def update_listings(username):
+	buyer = User.objects.get(username=username).buyer
+	unpaid_transactions = Transactions.objects.filter(buyer=buyer, completed=False)
+
+	for transaction in unpaid_transactions:
+		transaction.update_listing_orders()
+		transaction.update_unit_price()
+		transaction.completed = True
+		transaction.save()
 
 def get_unpaid_transactions(username):
 	buyer = User.objects.get(username=username).buyer
@@ -66,6 +75,7 @@ def get_unpaid_transactions(username):
 
 	unpaid_transactions_data = []
 	unpaid_transactions_columns = ["", "Product Name", "Seller", "Unit Price", "Orders to Ship", "Quantity Ordered", "Total Price"]
+	subtotal = 0
 
 	for transaction in unpaid_transactions:
 		unit_price = float(transaction.unit_price)
@@ -81,10 +91,9 @@ def get_unpaid_transactions(username):
 		data = [image_path, item_name, seller, unit_price, orders_to_ship, quantity, total_price]
 		unpaid_transactions_data.append(data)
 
-	return unpaid_transactions_columns, unpaid_transactions_data
+		subtotal += total_price
 
-
-
+	return unpaid_transactions_columns, unpaid_transactions_data, subtotal
 
 def delete_transaction(transaction):
     transaction = Transactions.objects.filter(pk=transaction.pk)

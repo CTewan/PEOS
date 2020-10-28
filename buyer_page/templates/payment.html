@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/payment.css">
+<div class="pure-g">
+    <div class="pure-u-22-24 payment-container">
+        <p> Thank you for shopping with us {{username}}! </p>
+        <h3> Powered by <img src="/static/img/transferwise.png"> </h3>
+    </div>
+
+    <div class="pure-u-22-24 return-to-home-container">
+    <p style="float:right"> <a href="/buyer/{{ username }}"> Return to home page </a> </p>
+    </div>
+</div>
+{% endblock %}

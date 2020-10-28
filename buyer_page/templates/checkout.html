@@ -27,7 +27,19 @@
     } );
 </script>
 
-<div class="pure-u-19-24 cart-container">
-    <table id=checkout> </table>
+<div class="pure-g">
+    <div class="pure-u-22-24 cart-container">
+        <table id=checkout> </table>
+    </div>
+
+    <div class="buffer"></div>
+
+    <div class="pure-u-22-24 checkout-container">
+        <p> Total: <b> ${{subtotal}} </b> </p>
+        <form action="/checkout/{{ username }}" class="pure-form pure-form-aligned" method="POST" >
+            {% csrf_token %}
+            <button type="submit" class="pure-button pure-button-primary" style="float:right">Check Out</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

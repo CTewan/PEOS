@@ -1,7 +1,31 @@
 .cart-container {
 	position: relative;
-	width: 100%;
-	border: 2px solid #000000;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 	margin: 0 auto;
 	padding: 25px 25px;
+	max-height: 50%;
+}
+
+.buffer {
+	position: absolute;
+	bottom:150px;
+	min-height:200px;
+}
+
+.checkout-container {
+	position: relative;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	margin: 0 auto;
+	padding: 25px 25px;
+	min-height:20%;
+	text-align: right;
+	top: 300px;
+}
+
+.checkout-container p {
+	font-size: 20px;
+}
+
+.checkout-container b{
+	font-size: 28px;
 }
