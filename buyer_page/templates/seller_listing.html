@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="/static/css/buyer_listing.css">
+
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="pure-g">
+	<div class="pure-u-1 banner">
+		<h2> <b> Welcome back {{ username }}! </b> </h2>
+		<br>
+		<p> Here are the items that you have listed. </p>
+	</div>
+
+	{% for listing in listings %}
+	<div class="pure-u-19-24 listing-container">
+		<div class="pure-u-1-4 listing-img-container">
+			<img src="{{listing.image_path}}">
+		</div>
+
+		<div class="pure-u-3-4 listing-details-container">
+			<h2> {{listing.item_name}} </h2>
+			<br> 
+			<p> <b> Quantity Available: </b> {{ listing.quantity }} </p>
+			<p> <b> Current Orders: </b> {{ listing.orders }} </p> 
+			<p> <b> Orders to Ship: </b> {{ listing.min_orders }} </p>
+			<p> <b> Unit Price: </b> ${{ listing.current_price }} </p>
+			<p> <b> Category </b> {{ listing.category }} </p>
+			<p> <b> Date Listed: </b> {{ listing.created_at }} </p>
+
+			<br>
+			<a href="/modify_item/{{ username }}/{{ listing.listing_id }}"> Edit </a>
+		</div>
+	</div>
+	{% endfor %}
+
+</div>
+{% endblock %}

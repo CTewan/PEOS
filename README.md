@@ -1,7 +1,7 @@
 IS5009 Final Project
 
 
-PostgreSQL
+PostgreSQL >= 9.4
 
 * CREATE USER is5009 WITH PASSWORD 'is5009pw123';
 * CREATE DATABASE peos_db;

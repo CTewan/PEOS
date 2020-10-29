@@ -35,6 +35,10 @@ urlpatterns += [
     path(r'item_details/<int:listing_id>', item_details, name="item_details"),
 ]
 
+urlpatterns += [
+    path(r'seller/<str:username>/', seller_landing, name="seller_landing")
+]
+
 """
 
 urlpatterns = [

@@ -66,10 +66,10 @@ class Seller(User):
                                     default=None)
 
     def get_listings(self):
-        return Listings.objects.filter(seller=self)
+        return Listing.objects.filter(seller=self)
 
     def get_active_listings(self):
-        return Listings.objects.filter(seller=self, active=True)
+        return Listing.objects.filter(seller=self, active=True)
 
 class Listing(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)

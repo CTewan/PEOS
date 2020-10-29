@@ -30,9 +30,6 @@ def login(request):
 		return render(request, "login.html", context)
 
 
-
-
-# Create your views here.
 def buyer_landing(request, username=None):
 	context = {}
 	context["username"] = username
@@ -70,6 +67,7 @@ def buyer_listing(request, category, username=None):
 	else:
 		return "In progress."
 
+
 def item_details(request, listing_id, username=None):
 	context = {}
 	context["username"] = username
@@ -99,8 +97,8 @@ def item_details(request, listing_id, username=None):
 								   listing_id=listing_id,
 								   quantity=order_info["order_quantity"])
 
-		#return render(request, "checkout.html", context)
 		return redirect('checkout', username=username)
+
 
 def checkout(request, username):
 	context={}
@@ -119,9 +117,28 @@ def checkout(request, username):
 
 		return redirect('payment', username=username)
 
+
 def payment(request, username):
 	context = {}
 	context["username"] = username
 
 	return render(request, "payment.html", context)
 	
+
+
+
+
+
+
+def seller_landing(request, username):
+	context = {}
+	context["username"] = username
+
+	if request.method == "GET":
+		listings = get_all_seller_listings(username=username)
+		context["listings"] = listings
+
+		return render(request, "seller_listing.html", context)
+	
+	else:
+		return "In progress."
