@@ -87,7 +87,7 @@ class Listing(models.Model):
     active = models.BooleanField(default=False)
     category = models.CharField(max_length=200, default=None, null=True)
     min_orders = models.IntegerField(default=0)
-    current_price = models.IntegerField(default=0)
+    current_price =  models.DecimalField(max_digits=9, decimal_places=2, default=0)
 
 
     def update_orders(self, orders):

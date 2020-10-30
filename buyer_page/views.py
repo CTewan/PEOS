@@ -130,7 +130,7 @@ def payment(request, username):
 
 
 
-def seller_landing(request, username):
+def seller_listing(request, username):
 	context = {}
 	context["username"] = username
 
@@ -140,5 +140,37 @@ def seller_landing(request, username):
 
 		return render(request, "seller_listing.html", context)
 	
+	else:
+		return "In progress."
+
+def add_item(request, username):
+	pass
+
+def modify_item(request, username, listing_id):
+	context = {}
+	context["username"] = username
+
+	if request.method == "GET":
+		listing = get_listing_details(listing_id=listing_id)
+
+		data = {"item_name": listing["item_name"],
+				"quantity": listing["quantity"],
+				"expiration_date": listing["expiration_date"],
+				"category": listing["category"]}
+
+		i=1
+		for tier in listing["price_tier_data"]:
+			data["quantity_tier_{}".format(i)] = tier[1]
+			data["price_tier_{}".format(i)] = tier[2]
+
+			i += 1
+
+		modify_form = ModifyForm(initial=data)
+
+		context["listing"] = listing
+		context["form"] = modify_form
+
+		return render(request, "modify_item.html", context)
+
 	else:
 		return "In progress."

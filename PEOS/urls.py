@@ -36,7 +36,9 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path(r'seller/<str:username>/', seller_landing, name="seller_landing")
+    path(r'seller/<str:username>', seller_listing, name="seller_listing"),
+    path(r'add_item/<str:username>', add_item, name="add_item"),
+    path(r'modify_item/<str:username>/<int:listing_id>', modify_item, name="modify_item"),
 ]
 
 """
