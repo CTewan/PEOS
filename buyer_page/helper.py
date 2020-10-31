@@ -1,8 +1,9 @@
 import os
 from pathlib import Path
+import random
+
 from PIL import Image
 
-from django.conf import settings
 from .models import *
 
 def delete_transaction(transaction):
@@ -16,6 +17,19 @@ def get_all_product_categories():
     categories = Listing.objects.filter(active=True).order_by().values('category').distinct()
 
     return categories
+
+def get_category_image(category_list):
+	image_paths = []
+
+	for category in category_list:
+		listings = Listing.objects.filter(category=category, active=True)
+		listing = random.choice(listings)
+		image = listing.image_path_l
+		image_paths.append(image)
+
+	return image_paths
+
+
 
 def check_credentials(login_info):
 	username = login_info["username"]
@@ -135,10 +149,10 @@ def _process_image(img_obj, listing_id):
 	small_img.save(os.path.join(Path(__file__).resolve().parent, "static", "img", str(listing_id) + "S.jpg"))
 
 
-def create_modify_listing(username, listing_id, form, modify=False):
+def create_modify_listing(username, form, listing_id=None):
 	seller = User.objects.get(username=username).seller
 
-	if modify:
+	if listing_id:
 		listing = Listing.objects.get(listing_id=listing_id)
 
 		if listing.seller != seller:
@@ -162,6 +176,11 @@ def create_modify_listing(username, listing_id, form, modify=False):
 		unit_price[form["quantity_tier_3"]] = float(form["price_tier_3"])
 
 	listing.unit_price = unit_price
+	listing.active = True
+	listing.save()
+	listing.get_min_orders()
+
+	listing_id = listing.listing_id
 
 	if form["image"]:
 		image = form["image"]

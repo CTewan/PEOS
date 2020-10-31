@@ -36,14 +36,16 @@ def buyer_landing(request, username=None):
 
 	if request.method == "GET":
 		categories = get_all_product_categories()
-		subset_categories = random.choices(categories, k=3)
-		subset_categories = [category["category"] for category in subset_categories]
+		#subset_categories = random.choices(categories, k=3)
+		#subset_categories = [category["category"] for category in subset_categories]
+		subset_categories = [category["category"] for category in categories]
 
 		if username is not None:
 			urls = ["/buyer_listing/" + username + "/" + category for category in subset_categories]
 		else:
 			urls = ["/buyer_listing/" + category for category in subset_categories]
-		image_paths = ["img/fruit.png", "img/shirt.jpg", "img/washing_machine.jpg"] 
+		#image_paths = ["img/fruit.png", "img/shirt.jpg", "img/washing_machine.jpg"]
+		image_paths = get_category_image(category_list=subset_categories)
 
 		data = [{"category": subset_categories[i], "url": urls[i], "image_path": image_paths[i]} for i in range(len(urls))]
 
@@ -143,12 +145,6 @@ def seller_listing(request, username):
 	else:
 		return "In progress."
 
-def add_item(request, username):
-	context = {}
-	context["username"] = username
-	
-	return render(request, "add_item.html", context)
-
 def modify_item(request, username, listing_id):
 	context = {}
 	context["username"] = username
@@ -182,8 +178,29 @@ def modify_item(request, username, listing_id):
 			form_data = form.cleaned_data
 
 			create_modify_listing(username=username,
-								  listing_id=listing_id,
 								  form=form_data,
-								  modify=True)
+								  listing_id=listing_id)
+
+		return redirect("seller_listing", username=username)
+
+def add_item(request, username):
+	context = {}
+	context["username"] = username
+	
+	if request.method == "GET":
+		modify_form = ModifyForm()
+
+		context["form"] = modify_form
+
+		return render(request, "add_item.html", context)
+
+	else:
+		form = ModifyForm(request.POST, request.FILES)
+
+		if form.is_valid():
+			form_data = form.cleaned_data
+
+			create_modify_listing(username=username,
+								  form=form_data)
 
 		return redirect("seller_listing", username=username)
