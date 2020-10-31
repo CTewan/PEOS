@@ -83,7 +83,8 @@ class Listing(models.Model):
     quantity = models.IntegerField(null=False)
     orders = models.IntegerField(default=0)
     expiration_date = models.DateTimeField(default=None)
-    image_path = models.CharField(max_length=200, null=True, default=None)
+    image_path_s = models.CharField(max_length=200, null=True, default=None)
+    image_path_l = models.CharField(max_length=200, null=True, default=None)
     active = models.BooleanField(default=False)
     category = models.CharField(max_length=200, default=None, null=True)
     min_orders = models.IntegerField(default=0)
@@ -127,6 +128,15 @@ class Listing(models.Model):
             i += 1
 
         return data
+
+    def update_all_transactions(self):
+        transactions = Transactions.objects.filter(listing=self)
+        current_price = self.get_current_price()
+
+        if len(transactions) > 0:
+            for transaction in transactions:
+                transaction.unit_price = current_price
+                transaction.save()
 
 
 class Transactions(models.Model):

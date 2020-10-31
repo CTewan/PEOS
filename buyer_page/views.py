@@ -144,7 +144,10 @@ def seller_listing(request, username):
 		return "In progress."
 
 def add_item(request, username):
-	pass
+	context = {}
+	context["username"] = username
+	
+	return render(request, "add_item.html", context)
 
 def modify_item(request, username, listing_id):
 	context = {}
@@ -173,4 +176,14 @@ def modify_item(request, username, listing_id):
 		return render(request, "modify_item.html", context)
 
 	else:
-		return "In progress."
+		form = ModifyForm(request.POST, request.FILES)
+
+		if form.is_valid():
+			form_data = form.cleaned_data
+
+			create_modify_listing(username=username,
+								  listing_id=listing_id,
+								  form=form_data,
+								  modify=True)
+
+		return redirect("seller_listing", username=username)

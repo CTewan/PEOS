@@ -12,35 +12,35 @@ seller = Seller(user_ptr=user)
 seller.__dict__.update(user.__dict__)
 seller.save()
 
-listing = Listing(seller=seller, item_name="potato", unit_price={50: 100, 100: 80}, quantity=500, expiration_date="2020-10-20 00:00", image_path="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=True, category="Electronics")
+listing = Listing(seller=seller, item_name="potato", unit_price={50: 100, 100: 80}, quantity=500, expiration_date="2020-10-20 00:00", image_path_l="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=True, category="Electronics")
 
 listing.get_current_price()
 listing.get_min_orders()
 
 listing.save()
 
-listing = Listing(seller=seller, item_name="apple", unit_price={50: 100, 100: 80, 1000: 50}, quantity=500, expiration_date="2020-10-20 00:00", image_path="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=False, category="Fruits")
+listing = Listing(seller=seller, item_name="apple", unit_price={50: 100, 100: 80, 1000: 50}, quantity=500, expiration_date="2020-10-20 00:00", image_path_l="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=False, category="Fruits")
 
 listing.get_current_price()
 listing.get_min_orders()
 
 listing.save()
 
-listing = Listing(seller=seller, item_name="apple", unit_price={50: 100, 100: 80}, quantity=500, expiration_date="2020-10-20 00:00", image_path="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=True, category="Fruits")
+listing = Listing(seller=seller, item_name="apple", unit_price={50: 100, 100: 80}, quantity=500, expiration_date="2020-10-20 00:00", image_path_l="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=True, category="Fruits")
 
 listing.get_current_price()
 listing.get_min_orders()
 
 listing.save()
 
-listing = Listing(seller=seller, item_name="apple", unit_price={50: 100, 100: 80}, quantity=500, expiration_date="2020-10-20 00:00", image_path="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=True, category="Fruits")
+listing = Listing(seller=seller, item_name="apple", unit_price={50: 100, 100: 80}, quantity=500, expiration_date="2020-10-20 00:00", image_path_l="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=True, category="Fruits")
 
 listing.get_current_price()
 listing.get_min_orders()
 
 listing.save()
 
-listing = Listing(seller=seller, item_name="panasonic", unit_price={50: 100, 100: 80}, quantity=500, expiration_date="2020-10-20 00:00", image_path="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=True, category="Shirt")
+listing = Listing(seller=seller, item_name="panasonic", unit_price={50: 100, 100: 80}, quantity=500, expiration_date="2020-10-20 00:00", image_path_l="https://www.irishtimes.com/polopoly_fs/1.3967277.1564062363!/image/image.jpg_gen/derivatives/box_620_330/image.jpg", active=True, category="Shirt")
 
 listing.get_current_price()
 listing.get_min_orders()

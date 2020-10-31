@@ -1,3 +1,8 @@
+import os
+from pathlib import Path
+from PIL import Image
+
+from django.conf import settings
 from .models import *
 
 def delete_transaction(transaction):
@@ -113,3 +118,57 @@ def get_all_seller_listings(username):
 	listings = listings.values()
 
 	return listings
+
+def _process_image(img_obj, listing_id):
+	LARGE_SIZE = (200, 200)
+	SMALL_SIZE = (50, 50)
+
+	img = Image.open(img_obj)
+
+	if img.mode in ("RGBA", "P"): 
+		img = img.convert("RGB")
+
+	large_img = img.resize(LARGE_SIZE)
+	small_img = img.resize(SMALL_SIZE)
+
+	large_img.save(os.path.join(Path(__file__).resolve().parent, "static", "img", str(listing_id) + "L.jpg"))
+	small_img.save(os.path.join(Path(__file__).resolve().parent, "static", "img", str(listing_id) + "S.jpg"))
+
+
+def create_modify_listing(username, listing_id, form, modify=False):
+	seller = User.objects.get(username=username).seller
+
+	if modify:
+		listing = Listing.objects.get(listing_id=listing_id)
+
+		if listing.seller != seller:
+			return False
+	else:
+		listing = Listing()
+		listing.seller = seller
+
+	listing.quantity = form["quantity"]
+	listing.item_name = form["item_name"]
+	listing.expiration_date = form["expiration_date"]
+	listing.category = form["category"]
+
+	unit_price = {}
+	unit_price[form["quantity_tier_1"]] = float(form["price_tier_1"])
+
+	if form["quantity_tier_2"] and form["price_tier_2"]:
+		unit_price[form["quantity_tier_2"]] = float(form["price_tier_2"])
+
+	if form["quantity_tier_3"] and form["price_tier_3"]:
+		unit_price[form["quantity_tier_3"]] = float(form["price_tier_3"])
+
+	listing.unit_price = unit_price
+
+	if form["image"]:
+		image = form["image"]
+		_process_image(img_obj=image, listing_id=listing_id)
+
+		listing.image_path_s = "/static/img/" + str(listing_id) + "S.jpg"
+		listing.image_path_l = "/static/img/" + str(listing_id) + "L.jpg"
+
+	listing.save()
+	listing.update_all_transactions()

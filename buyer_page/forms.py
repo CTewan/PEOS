@@ -66,4 +66,5 @@ class ModifyForm(forms.Form):
 															   		'style': 'position: relative;'}))
 
 	image = forms.ImageField(label='image',
+							 required=False,
 							 widget=forms.ClearableFileInput())
