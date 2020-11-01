@@ -1,8 +1,13 @@
 IS5009 Final Project
 
+Clone this repo to desired location.
 
-PostgreSQL >= 9.4
+Requirements:
+* PostgreSQL >= 9.4
+* Python >= 3.6
+* pip install -r requirements.txt
 
+Setup DB:
 * CREATE USER is5009 WITH PASSWORD 'is5009pw123';
 * CREATE DATABASE peos_db;
 * ALTER ROLE is5009 SET client_encoding TO 'utf8';
@@ -11,6 +16,10 @@ PostgreSQL >= 9.4
 * GRANT ALL PRIVILEGES ON DATABASE PEOS_DB TO is5009;
 * ALTER USER is5009 CREATEDB;
 
+Create Django user:
+* python manage.py createsuperuser --username=is5009 --email=is5009@gmail.com
 
-Django Create Superuser to access Django Admin Page
-python manage.py createsuperuser --username=is5009 --email=is5009@gmail.com
+Setup:
+* python manage.py makemigrations
+* python manage.py migrate
+* python manage.py runserver
