@@ -51,7 +51,7 @@ class ModifyForm(forms.Form):
 															   'style': 'position: relative;'}))
 
 	expiration_date = forms.DateTimeField(label="expiration_date",
-										  widget=forms.DateTimeInput(attrs={'name': 'expiration_date', 'class': 'pure-input-1-4',
+										  widget=forms.DateTimeInput(attrs={'name': 'expiration_date', 'class': 'pure-input-1-4', 'placeholder': 'YYYY-mm-dd HH:MM',
 										  									'style': 'position: relative;'}))
 
 	category = forms.CharField(label='category', max_length=200,

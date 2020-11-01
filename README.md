@@ -23,3 +23,5 @@ Setup:
 * python manage.py makemigrations
 * python manage.py migrate
 * python manage.py runserver
+
+Go to localhost:8000
