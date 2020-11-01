@@ -5,8 +5,24 @@ from .models import *
 from .helper import *
 from .forms import *
 
+def landing(request, username=None):
+	context = {}
+	context["username"] = username
+
+	if username:
+		context["logged_in"] = 1
+	else:
+		context["logged_in"] = 0
+
+	if request.method == "GET":
+		return render(request, "landing.html", context)
+
+	else:
+		return "In progress."
+
 def login(request):
 	context = {}
+	context["logged_in"] = 0
 
 	if request.method == "GET":
 		login_form = LoginForm()
@@ -30,14 +46,44 @@ def login(request):
 		return render(request, "login.html", context)
 
 
+def sign_up(request):
+	context = {}
+	context["logged_in"] = 0
+
+	if request.method == "GET":
+		signup_form = SignUpForm()
+		context["form"] = signup_form
+		context["error"] = 0
+
+		return render(request, "sign_up.html", context)
+
+	elif request.method == "POST":
+		signup_form = SignUpForm(request.POST)
+		if signup_form.is_valid():
+			signup_info = signup_form.cleaned_data
+
+			error = create_user(signup_info=signup_info)
+
+			if not error:
+				return redirect('login')
+
+			context["error"] = 1
+			context["error_text"] = error
+			context["form"] = signup_form
+
+			return render(request, "sign_up.html", context)
+
 def buyer_landing(request, username=None):
 	context = {}
 	context["username"] = username
 
+	if username:
+		context["logged_in"] = 1
+	else:
+		context["logged_in"] = 0
+
 	if request.method == "GET":
 		categories = get_all_product_categories()
-		#subset_categories = random.choices(categories, k=3)
-		#subset_categories = [category["category"] for category in subset_categories]
 		subset_categories = [category["category"] for category in categories]
 
 		if username is not None:
@@ -60,6 +106,11 @@ def buyer_listing(request, category, username=None):
 	context = {}
 	context["username"] = username
 
+	if username:
+		context["logged_in"] = 1
+	else:
+		context["logged_in"] = 0
+
 	if request.method == "GET":
 		listings = get_all_listings_by_category(category=category)
 		context["listings"] = listings
@@ -79,6 +130,8 @@ def item_details(request, listing_id, username=None):
 		context["form"] = login_form
 
 		return render(request, "login.html", context)
+
+	context["logged_in"] = 1
 
 	if request.method == "GET":
 		listing = get_listing_details(listing_id=listing_id)
@@ -105,6 +158,7 @@ def item_details(request, listing_id, username=None):
 def checkout(request, username):
 	context={}
 	context["username"] = username
+	context["logged_in"] = 1
 
 	if request.method == "GET":
 		columns, data, subtotal = get_unpaid_transactions(username=username)
@@ -123,6 +177,7 @@ def checkout(request, username):
 def payment(request, username):
 	context = {}
 	context["username"] = username
+	context["logged_in"] = 1
 
 	return render(request, "payment.html", context)
 	
@@ -136,6 +191,8 @@ def seller_listing(request, username):
 	context = {}
 	context["username"] = username
 
+	context["logged_in"] = 1
+
 	if request.method == "GET":
 		listings = get_all_seller_listings(username=username)
 		context["listings"] = listings
@@ -148,6 +205,7 @@ def seller_listing(request, username):
 def modify_item(request, username, listing_id):
 	context = {}
 	context["username"] = username
+	context["logged_in"] = 1
 
 	if request.method == "GET":
 		listing = get_listing_details(listing_id=listing_id)
@@ -186,6 +244,7 @@ def modify_item(request, username, listing_id):
 def add_item(request, username):
 	context = {}
 	context["username"] = username
+	context["logged_in"] = 1
 	
 	if request.method == "GET":
 		modify_form = ModifyForm()

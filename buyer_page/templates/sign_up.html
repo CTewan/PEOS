@@ -1,0 +1,83 @@
+<link rel="stylesheet" href="/static/css/modify_item.css">
+
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+
+<script>
+    var error = {{error|safe}};
+    var error_text = "{{error_text|safe}}";
+
+    if (error==1) {
+        alert(error_text)
+    }
+</script>
+
+<div class="pure-g">
+	<div class="pure-u-19-24 item-container">
+		<form action="/sign_up" class="pure-form pure-form-aligned" method="POST" >
+	        {% csrf_token %}
+	        <div class="pure-u-1 buffer"> <b>  Welcome to PEOS  </b> </div>
+
+	        <div class="pure-u-12-24 details-container">
+	        	<div class="pure-u-8-24 label-container">
+	        		First Name: 
+	        	</div>
+	        	{{form.first_name}}
+	        </div>
+
+
+	        <div class="pure-u-12-24 details-container">
+	        	<div class="pure-u-8-24 label-container">
+	        		Last Name: 
+	        	</div>
+	        	{{form.last_name}}
+	        </div>
+
+	        <div class="pure-u-12-24 details-container">
+	        	<div class="pure-u-8-24 label-container">
+	        		Username: 
+	        	</div>
+	        	{{form.username}}
+	        </div>
+
+	        <div class="pure-u-12-24 details-container">
+	        	<div class="pure-u-8-24 label-container">
+	        		Password: 
+	        	</div>
+	        	{{form.password}}
+	        </div>
+
+	        <div class="pure-u-1 details-container">
+	        	<div class="pure-u-4-24 label-container">
+	        		Email: 
+	        	</div>
+	        	{{form.email}}
+	        </div>
+
+	        <div class="pure-u-1 details-container">
+	        	<div class="pure-u-4-24 label-container">
+	        		Delivery Address: 
+	        	</div>
+	        	{{form.delivery_address}}
+	        </div>
+
+	        <div class="pure-u-1 details-container">
+	        	<div class="pure-u-4-24 label-container">
+	        		Billing Address: 
+	        	</div>
+	        	{{form.billing_address}}
+	        </div>
+
+
+		    <div class="pure-u-1" style="padding:20px 0px">
+				<button type="submit" class="pure-button pure-button-primary" style="float:right"> Sign Up </button>
+			</div>
+		</form>
+	</div>
+
+</div>
+
+		
+{% endblock %}

@@ -7,6 +7,35 @@ class LoginForm(forms.Form):
     password = forms.CharField(label="password", max_length=30,
                                widget=forms.PasswordInput(attrs={'name': 'password', 'placeholder': 'Password', 'class': 'pure-input-2-3',
                                									 'style': 'position: relative;'}))
+
+class SignUpForm(forms.Form):
+    username = forms.CharField(label="username", max_length=30,
+                               widget=forms.TextInput(attrs={'name': 'username', 'class': 'pure-input-1-2',
+                               								 'style': 'position: relative;'}))
+    password = forms.CharField(label="password", max_length=30,
+                               widget=forms.PasswordInput(attrs={'name': 'password', 'class': 'pure-input-1-2',
+                               									 'style': 'position: relative;'}))
+    first_name = forms.CharField(label="first_name", max_length=30,
+                                 widget=forms.TextInput(attrs={'name': 'first_name', 'placeholder': 'Given name', 'class': 'pure-input-1-2',
+                               								   'style': 'position: relative;'}))
+
+    last_name = forms.CharField(label="last_name", max_length=30,
+                                widget=forms.TextInput(attrs={'name': 'last_name', 'placeholder': 'Family name', 'class': 'pure-input-1-2',
+                               								  'style': 'position: relative;'}))
+
+    email = forms.EmailField(label="email", max_length=50,
+    						 widget=forms.TextInput(attrs={'name': 'email', 'class': 'pure-input-3-4',
+    						 							   'style': 'position: relative;'}))
+
+    delivery_address = forms.CharField(label="delivery_address", max_length=100,
+		                               widget=forms.TextInput(attrs={'name': 'delivery_address', 'class': 'pure-input-3-4',
+		                               								 'style': 'position: relative;'}))
+
+    billing_address = forms.CharField(label="billing_address", max_length=100,
+		                               widget=forms.TextInput(attrs={'name': 'mailing_address', 'class': 'pure-input-3-4',
+		                               								 'style': 'position: relative;'}))
+
+
 class OrderForm(forms.Form):
 	order_quantity = forms.IntegerField(label="order_quantity", 
 										widget=forms.TextInput(attrs={'name': 'order_quantity', 'value': 0, 'class': 'pure-input-1-3',

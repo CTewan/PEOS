@@ -10,6 +10,15 @@
 		<br>
 		<p> Here are the items that you have listed. </p>
 	</div>
+</div>
+
+<div class="pure-g">
+	<div class="pure-u-1" style="padding:20px 130px;">
+		<button type="submit" class="pure-button pure-button-primary" style="float:right"> <a href="/add_item/{{ username }}" style="color:#ffffff"> Add Item </a> </button>
+	</div>
+</div>
+
+<div class="pure-g">
 
 	{% for listing in listings %}
 	<div class="pure-u-19-24 listing-container">
@@ -24,7 +33,7 @@
 			<p> <b> Current Orders: </b> {{ listing.orders }} </p> 
 			<p> <b> Orders to Ship: </b> {{ listing.min_orders }} </p>
 			<p> <b> Unit Price: </b> ${{ listing.current_price }} </p>
-			<p> <b> Category </b> {{ listing.category }} </p>
+			<p> <b> Category: </b> {{ listing.category }} </p>
 			<p> <b> Date Listed: </b> {{ listing.created_at }} </p>
 
 			<br>
@@ -34,9 +43,4 @@
 	{% endfor %}
 </div>
 
-<div class="pure-g">
-	<div class="pure-u-1" style="padding:0px 100px;">
-		<button type="submit" class="pure-button pure-button-primary" style="float:right"> <a href="/add_item/{{ username }}" style="color:#ffffff"> Add Item </a> </button>
-	</div>
-</div>
 {% endblock %}

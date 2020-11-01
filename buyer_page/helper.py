@@ -29,7 +29,45 @@ def get_category_image(category_list):
 
 	return image_paths
 
+def create_user(signup_info):
+	user = User()
 
+	existing_username = len(User.objects.filter(username=signup_info["username"])) > 0
+	existing_email = len(User.objects.filter(email=signup_info["email"])) > 0
+
+	error_text = []
+
+	if existing_username:
+		error_text.append("Username {}".format(signup_info["username"]))
+
+	if existing_email:
+		error_text.append("Email {}".format(signup_info["email"]))
+
+	if len(error_text) > 0:
+		error_text = " and ".join(error_text)
+		error_text += " already exists."
+
+		return error_text
+
+	user.first_name = signup_info["first_name"]
+	user.last_name = signup_info["last_name"]
+	user.username = signup_info["username"]
+	user.email = signup_info["email"]
+	user.password = signup_info["password"]
+	user.delivery_address = signup_info["delivery_address"]
+	user.billing_address = signup_info["billing_address"]
+
+	user.save()
+
+	buyer = Buyer(user_ptr=user)
+	buyer.__dict__.update(user.__dict__)
+	buyer.save()
+
+	seller = Seller(user_ptr=user)
+	seller.__dict__.update(user.__dict__)
+	seller.save()
+
+	return False
 
 def check_credentials(login_info):
 	username = login_info["username"]
